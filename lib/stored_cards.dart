@@ -4,13 +4,13 @@ class StoredCards {
   String paymentType = PaymentConst.ReadyUI;
   String checkoutid;
   String tokenId;
-  String brandName;
+  String? brandName;
   String cvv;
   StoredCards({
     this.paymentType = PaymentConst.ReadyUI,
-    @required this.checkoutid,
+    required this.checkoutid,
     this.brandName,
-    @required this.tokenId,
-    @required this.cvv,
+    required this.tokenId,
+    required this.cvv,
   });
 }
