@@ -1,6 +1,7 @@
 part of 'flutter_hyperpay.dart';
 
 class PaymentConst {
+  
   static const String MADA = "MADA";
   static const String APPLEPAY = "APPLEPAY";
   static const String Credit = "credit";
