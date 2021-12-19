@@ -14,17 +14,17 @@ class FlutterHyperpay {
   PaymentMode paymentMode;
 
   FlutterHyperpay({
-    @required this.channeleName,
-    @required this.shopperResultUrl,
-    @required this.paymentMode,
-    @required this.lang,
+    required this.channeleName,
+    required this.shopperResultUrl,
+    required this.paymentMode,
+    required this.lang,
   });
 
   void initFlutterHyperPay({
-    @required String channeleName,
-    @required String shopperResultUrl,
-    @required PaymentMode paymentMode,
-    @required String lang,
+    required String channeleName,
+    required String shopperResultUrl,
+    required PaymentMode paymentMode,
+    required String lang,
   }) {
     this.channeleName = channeleName;
     this.shopperResultUrl = shopperResultUrl;
@@ -32,7 +32,7 @@ class FlutterHyperpay {
     this.paymentMode = paymentMode;
   }
 
-  Future<PaymentResultData> readyUIVisa({@required ReadyUI readyUI}) async {
+  Future<PaymentResultData> readyUIVisa({required ReadyUI readyUI}) async {
     return await implementPayment(
       brand: PaymentBrands.VISA,
       checkoutid: readyUI.checkoutid,
@@ -40,7 +40,7 @@ class FlutterHyperpay {
     );
   }
 
-  Future<PaymentResultData> readyUIMada({@required ReadyUI readyUI}) async {
+  Future<PaymentResultData> readyUIMada({required ReadyUI readyUI}) async {
     return await implementPayment(
       brand: PaymentBrands.MADA,
       checkoutid: readyUI.checkoutid,
@@ -48,7 +48,7 @@ class FlutterHyperpay {
     );
   }
 
-  Future<PaymentResultData> readyUIMaster({@required ReadyUI readyUI}) async {
+  Future<PaymentResultData> readyUIMaster({required ReadyUI readyUI}) async {
     return await implementPayment(
       brand: PaymentBrands.MASTERCARD,
       checkoutid: readyUI.checkoutid,
@@ -56,7 +56,7 @@ class FlutterHyperpay {
     );
   }
 
-  Future<PaymentResultData> readyUICards({@required ReadyUI readyUI}) async {
+  Future<PaymentResultData> readyUICards({required ReadyUI readyUI}) async {
     return await implementPayment(
       brand: readyUI.brandName,
       checkoutid: readyUI.checkoutid,
@@ -65,7 +65,7 @@ class FlutterHyperpay {
   }
 
   Future<PaymentResultData> payWithSoredCards(
-      {@required StoredCards storedCards}) async {
+      {required StoredCards storedCards}) async {
     return await implementPaymentStoredCards(
       brand: storedCards.brandName,
       checkoutid: storedCards.checkoutid,
@@ -75,18 +75,18 @@ class FlutterHyperpay {
   }
 
   Future<PaymentResultData> payWithApplePay(
-      {@required ApplePay applePay}) async {
+      {required ApplePay applePay}) async {
     return await implementPaymentApplePay(applePay: applePay);
   }
 
   Future<PaymentResultData> implementPayment(
-      {@required String brand,
-      @required String checkoutid,
-      @required bool setStorePaymentDetailsMode}) async {
+      {required String? brand,
+      required String checkoutid,
+      required bool setStorePaymentDetailsMode}) async {
     String transactionStatus;
     var platform = MethodChannel(channeleName);
     try {
-      final String result = await platform.invokeMethod(
+      final String? result = await platform.invokeMethod(
         PaymentConst.gethyperpayresponse,
         getReadyModelCards(
           brand: brand,
@@ -105,15 +105,15 @@ class FlutterHyperpay {
   }
 
   Future<PaymentResultData> implementPaymentStoredCards({
-    @required String brand,
-    @required String checkoutid,
-    @required String tokenId,
-    @required String cvv,
+    required String? brand,
+    required String checkoutid,
+    required String tokenId,
+    required String cvv,
   }) async {
     String transactionStatus;
     var platform = MethodChannel(channeleName);
     try {
-      final String result = await platform.invokeMethod(
+      final String? result = await platform.invokeMethod(
         PaymentConst.gethyperpayresponse,
         getPaymentWithCards(
           tokenId: tokenId,
@@ -133,11 +133,11 @@ class FlutterHyperpay {
   }
 
   Future<PaymentResultData> implementPaymentApplePay(
-      {@required ApplePay applePay}) async {
+      {required ApplePay applePay}) async {
     String transactionStatus;
     var platform = MethodChannel(channeleName);
     try {
-      final String result = await platform.invokeMethod(
+      final String? result = await platform.invokeMethod(
         PaymentConst.gethyperpayresponse,
         getReadyModelApplePay(
           applePayBundel: applePay.applePayBundel,
@@ -158,10 +158,10 @@ class FlutterHyperpay {
   }
 
   ///get Ready Model Cards
-  Map<String, String> getReadyModelCards(
-      {@required String brand,
-      @required String checkoutid,
-      @required bool setStorePaymentDetailsMode}) {
+  Map<String, String?> getReadyModelCards(
+      {required String? brand,
+      required String checkoutid,
+      required bool setStorePaymentDetailsMode}) {
     return {
       "type": PaymentConst.ReadyUI,
       "mode": paymentMode.toString().split('.').last,
@@ -175,11 +175,11 @@ class FlutterHyperpay {
 
   ///get Ready Model Cards
   Map<String, String> getReadyModelApplePay({
-    @required String brand,
-    @required String checkoutid,
-    @required String applePayBundel,
-    @required String cuntryCode,
-    @required String currencyCode,
+    required String brand,
+    required String checkoutid,
+    required String applePayBundel,
+    required String cuntryCode,
+    required String currencyCode,
   }) {
     return {
       "type": PaymentConst.APPLEPAY,
@@ -195,11 +195,11 @@ class FlutterHyperpay {
   }
 
   ///get Payment With Cards
-  Map<String, String> getPaymentWithCards({
-    @required String brand,
-    @required String checkoutid,
-    @required String tokenId,
-    @required String cvv,
+  Map<String, String?> getPaymentWithCards({
+    required String? brand,
+    required String checkoutid,
+    required String tokenId,
+    required String cvv,
   }) {
     return {
       "type": PaymentConst.StoredCards,

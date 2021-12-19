@@ -1,6 +1,7 @@
 part of 'flutter_hyperpay.dart';
 
 class PaymentConst {
+  
   static const String MADA = "MADA";
   static const String APPLEPAY = "APPLEPAY";
   static const String Credit = "credit";
@@ -34,11 +35,11 @@ class PaymentBrands {
 }
 
 class PaymentResultData {
-  String errorString;
+  String? errorString;
   PaymentResult paymentResult;
   PaymentResultData({
-    @required this.errorString,
-    @required this.paymentResult,
+    required this.errorString,
+    required this.paymentResult,
   });
 }
 
@@ -48,10 +49,10 @@ class ApplePay {
   String currencyCode;
   String checkoutid;
   ApplePay(
-      {@required this.applePayBundel,
-      @required this.checkoutid,
-      @required this.cuntryCode,
-      @required this.currencyCode});
+      {required this.applePayBundel,
+      required this.checkoutid,
+      required this.cuntryCode,
+      required this.currencyCode});
 }
 
 class PaymentLang {
